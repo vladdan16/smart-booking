@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/features/home/home.dart';
+import 'package:frontend/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,6 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var selectedPage = context.watch<HomeModel>().selectedPage;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -17,7 +20,6 @@ class HomePage extends StatelessWidget {
           ),
           Builder(
             builder: (context) {
-              final selectedPage = context.watch<HomeModel>().selectedPage;
               switch (selectedPage) {
                 case 0:
                   return _HomeContent();
@@ -41,7 +43,7 @@ class HomePage extends StatelessWidget {
         onDestinationSelected: (index) {
           context.read<HomeModel>().selectedPage = index;
         },
-        selectedIndex: context.watch<HomeModel>().selectedPage,
+        selectedIndex: selectedPage,
         destinations: const <Widget>[
           NavigationDestination(
             icon: Icon(Icons.explore),
@@ -64,23 +66,56 @@ class HomePage extends StatelessWidget {
 class _HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final list = context.read<HomeModel>();
-    return SliverMainAxisGroup(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: Text(
-            'places_for_rent',
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headlineMedium?.fontSize,
+    final hPadding = MediaQuery.of(context).size.width > 700
+        ? MediaQuery.of(context).size.width * 0.1
+        : 10.0;
+    final list = context.read<HomeModel>();
+    return FutureBuilder(
+      future: context.read<HomeModel>().loadItemList(),
+      builder: (context, state) {
+        if (state.connectionState != ConnectionState.done) {
+          return const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        } else {
+          final list = context.read<HomeModel>().itemList;
+          return SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            sliver: SliverMainAxisGroup(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      'places_for_rent',
+                      style: TextStyle(
+                        fontSize: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.fontSize,
+                      ),
+                    ).tr(),
+                  ),
+                ),
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: hPadding,
+                    vertical: 10,
+                  ),
+                  sliver: SliverList.list(
+                    children: List.generate(
+                      list.length,
+                      (i) => ItemView(
+                        address: list[i].address,
+                        onTap: () => context.go('/item/${list[i].address}'),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ).tr(),
-        ),
-        SliverList.list(
-          children: <Widget>[
-            // ...List.generate(, (index) => null),
-          ],
-        ),
-      ],
+          );
+        }
+      },
     );
   }
 }
@@ -88,7 +123,11 @@ class _HomeContent extends StatelessWidget {
 class _BookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Bookings"));
+    return const SliverToBoxAdapter(
+      child: Center(
+        child: Text('Bookings'),
+      ),
+    );
   }
 }
 

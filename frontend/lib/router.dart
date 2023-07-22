@@ -16,13 +16,14 @@ class AppRouter {
         },
       ),
       GoRoute(
-          path: '/item/:address',
-          builder: (context, state) {
-            return ChangeNotifierProvider(
-              create: (context) => ItemModel(state.pathParameters['address']!),
-              child: const ItemPage(),
-            );
-          }),
+        path: '/item/:address',
+        builder: (context, state) {
+          return ChangeNotifierProvider(
+            create: (context) => ItemModel(state.pathParameters['address']!),
+            child: const ItemPage(),
+          );
+        },
+      ),
     ],
   );
 }

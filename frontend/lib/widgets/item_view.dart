@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/home/home.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ItemView extends StatelessWidget {
   const ItemView({
     super.key,
     required this.address,
+    required this.onTap,
   });
 
   final String address;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: context.read<HomeModel>().getItemData(address),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          final (bytes, price, description) = snapshot.data!;
-          return ListTile(
-            leading: Image.memory(bytes),
-            title: Text(price),
-            subtitle: Text(description),
-            onTap: () {
-              context.go('/item/$address');
-            },
-          );
-        } else {
-          return const ListTile(
-            title: CircularProgressIndicator(),
-          );
-        }
-      },
+    final item = context.read<HomeModel>().getItem(address);
+    return ListTile(
+      leading: item.imageBytes != null
+          ? Image.memory(item.imageBytes!)
+          : const SizedBox(
+              width: 100,
+              height: 100,
+            ),
+      title: Text('${item.price} ETH'),
+      subtitle: Text(
+        '${item.location}\n${item.description}',
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
+      onTap: onTap,
     );
   }
 }
