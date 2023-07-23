@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:frontend/core/date_time_extension.dart';
 import 'package:frontend/features/item/item.dart';
 import 'package:frontend/widgets/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ItemPage extends StatelessWidget {
@@ -23,6 +24,13 @@ class ItemPage extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
+          SliverAppBar(
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => context.go('/'),
+            ),
+            title: const Text('smart_booking').tr(),
+          ),
           SliverToBoxAdapter(
             child: ImageCarousel(
               imgList: context.read<ItemModel>().images,

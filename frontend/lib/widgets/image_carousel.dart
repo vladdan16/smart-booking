@@ -24,6 +24,22 @@ class ImageCarousel extends StatelessWidget {
               return Image.network(
                 imgList[index],
                 fit: BoxFit.fitHeight,
+                errorBuilder: (context, exception, stackTrace) {
+                  return Image.asset('assets/images/placeholder-image.jpg');
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
               );
             },
           ),

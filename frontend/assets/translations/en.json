@@ -13,5 +13,7 @@
   "my_bookings": "My bookings",
   "my_properties": "My properties",
   "places_for_rent": "Places for rent",
-  "choose_dates": "Choose dates"
+  "choose_dates": "Choose dates",
+  "login_with_metamask": "Login with Metamask",
+  "you_have_no_bookings": "You have no bookings yet"
 }

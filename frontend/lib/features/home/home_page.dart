@@ -34,11 +34,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   tooltip: "Filter",
-      //   onPressed: () {},
-      //   child: const Icon(Icons.filter_list_alt),
-      // ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (index) {
           context.read<HomeModel>().selectedPage = index;
@@ -76,44 +71,41 @@ class _HomeContent extends StatelessWidget {
           return const SliverFillRemaining(
             child: Center(child: CircularProgressIndicator()),
           );
-        } else {
-          final list = context.read<HomeModel>().itemList;
-          return SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            sliver: SliverMainAxisGroup(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: Center(
-                    child: Text(
-                      'places_for_rent',
-                      style: TextStyle(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.fontSize,
-                      ),
-                    ).tr(),
-                  ),
+        }
+        final list = context.read<HomeModel>().itemList;
+        return SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          sliver: SliverMainAxisGroup(
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                    'places_for_rent',
+                    style: TextStyle(
+                      fontSize:
+                          Theme.of(context).textTheme.headlineMedium?.fontSize,
+                    ),
+                  ).tr(),
                 ),
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: hPadding,
-                    vertical: 10,
-                  ),
-                  sliver: SliverList.list(
-                    children: List.generate(
-                      list.length,
-                      (i) => ItemView(
-                        address: list[i].address,
-                        onTap: () => context.go('/item/${list[i].address}'),
-                      ),
+              ),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: hPadding,
+                  vertical: 10,
+                ),
+                sliver: SliverList.list(
+                  children: List.generate(
+                    list.length,
+                    (i) => ItemView(
+                      address: list[i].address,
+                      onTap: () => context.go('/item/${list[i].address}'),
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-        }
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -122,9 +114,68 @@ class _HomeContent extends StatelessWidget {
 class _BookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const SliverToBoxAdapter(
-      child: Center(
-        child: Text('My bookings'),
+    final inProgress = context.watch<HomeModel>().bookingsInProgress;
+    final list = context.read<HomeModel>().bookingsList;
+    if (list == null && !inProgress) {
+      return SliverFillRemaining(
+        child: Center(
+          child: ElevatedButton(
+            child: const Text('login_with_metamask').tr(),
+            onPressed: () async {
+              await context.read<HomeModel>().loadBookingsList();
+              // TODO: implement login with metamask
+            },
+          ),
+        ),
+      );
+    } else if (inProgress) {
+      return const SliverFillRemaining(
+        child: Center(child: CircularProgressIndicator()),
+      );
+    } else if (list!.isEmpty) {
+      return SliverFillRemaining(
+        child: Center(
+          child: const Text('you_have_no_bookings').tr(),
+        ),
+      );
+    }
+    final hPadding = MediaQuery.of(context).size.width > 700
+        ? MediaQuery.of(context).size.width * 0.1
+        : 10.0;
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      sliver: SliverMainAxisGroup(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                'my_bookings',
+                style: TextStyle(
+                  fontSize:
+                      Theme.of(context).textTheme.headlineMedium?.fontSize,
+                ),
+              ).tr(),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(
+              horizontal: hPadding,
+              vertical: 10,
+            ),
+            sliver: SliverList.list(
+              children: List.generate(
+                list.length,
+                (index) {
+                  return BookingView(
+                    booking: list[index],
+                    onTap: () =>
+                        context.go('/item/${list[index].contractAddress}'),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

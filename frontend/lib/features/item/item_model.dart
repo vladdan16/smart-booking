@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../models/item.dart';
 
-class ItemModel extends ChangeNotifier{
+class ItemModel extends ChangeNotifier {
   final Item _item;
   DateTime? _startDate;
   DateTime? _endDate;
