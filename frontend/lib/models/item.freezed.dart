@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Item {
   String get address => throw _privateConstructorUsedError;
+  String get landlord => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
@@ -33,6 +34,7 @@ abstract class $ItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String address,
+      String landlord,
       List<String> images,
       double price,
       String location,
@@ -53,6 +55,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   @override
   $Res call({
     Object? address = null,
+    Object? landlord = null,
     Object? images = null,
     Object? price = null,
     Object? location = null,
@@ -62,6 +65,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      landlord: null == landlord
+          ? _value.landlord
+          : landlord // ignore: cast_nullable_to_non_nullable
               as String,
       images: null == images
           ? _value.images
@@ -91,6 +98,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String address,
+      String landlord,
       List<String> images,
       double price,
       String location,
@@ -107,6 +115,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
   @override
   $Res call({
     Object? address = null,
+    Object? landlord = null,
     Object? images = null,
     Object? price = null,
     Object? location = null,
@@ -116,6 +125,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      landlord: null == landlord
+          ? _value.landlord
+          : landlord // ignore: cast_nullable_to_non_nullable
               as String,
       images: null == images
           ? _value._images
@@ -142,6 +155,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
 class _$_Item implements _Item {
   const _$_Item(
       {required this.address,
+      required this.landlord,
       required final List<String> images,
       required this.price,
       required this.location,
@@ -150,6 +164,8 @@ class _$_Item implements _Item {
 
   @override
   final String address;
+  @override
+  final String landlord;
   final List<String> _images;
   @override
   List<String> get images {
@@ -167,7 +183,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(address: $address, images: $images, price: $price, location: $location, description: $description)';
+    return 'Item(address: $address, landlord: $landlord, images: $images, price: $price, location: $location, description: $description)';
   }
 
   @override
@@ -176,6 +192,8 @@ class _$_Item implements _Item {
         (other.runtimeType == runtimeType &&
             other is _$_Item &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.landlord, landlord) ||
+                other.landlord == landlord) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.location, location) ||
@@ -188,6 +206,7 @@ class _$_Item implements _Item {
   int get hashCode => Object.hash(
       runtimeType,
       address,
+      landlord,
       const DeepCollectionEquality().hash(_images),
       price,
       location,
@@ -203,6 +222,7 @@ class _$_Item implements _Item {
 abstract class _Item implements Item {
   const factory _Item(
       {required final String address,
+      required final String landlord,
       required final List<String> images,
       required final double price,
       required final String location,
@@ -210,6 +230,8 @@ abstract class _Item implements Item {
 
   @override
   String get address;
+  @override
+  String get landlord;
   @override
   List<String> get images;
   @override

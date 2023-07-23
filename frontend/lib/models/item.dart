@@ -6,6 +6,7 @@ part 'item.freezed.dart';
 class Item with _$Item {
   const factory Item({
     required String address,
+    required String landlord,
     required List<String> images,
     required double price,
     required String location,

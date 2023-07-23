@@ -15,5 +15,6 @@
   "places_for_rent": "Places for rent",
   "choose_dates": "Choose dates",
   "login_with_metamask": "Login with Metamask",
-  "you_have_no_bookings": "You have no bookings yet"
+  "you_have_no_bookings": "You have no bookings yet",
+  "you_have_no_properties": "You have no properties yet"
 }

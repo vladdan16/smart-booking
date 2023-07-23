@@ -31,7 +31,8 @@ class CodegenLoader extends AssetLoader{
   "places_for_rent": "Places for rent",
   "choose_dates": "Choose dates",
   "login_with_metamask": "Login with Metamask",
-  "you_have_no_bookings": "You have no bookings yet"
+  "you_have_no_bookings": "You have no bookings yet",
+  "you_have_no_properties": "You have no properties yet"
 };
 static const Map<String,dynamic> ru = {
   "smart_booking": "Smart booking",
@@ -50,7 +51,8 @@ static const Map<String,dynamic> ru = {
   "places_for_rent": "Список домов, квартир",
   "choose_dates": "Выберете даты",
   "login_with_metamask": "Войти с Metamask",
-  "you_have_no_bookings": "У вас еще нет броней"
+  "you_have_no_bookings": "У вас еще нет броней",
+  "you_have_no_properties": "У вас еще нет объявлений"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

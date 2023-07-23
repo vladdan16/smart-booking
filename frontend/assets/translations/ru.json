@@ -15,5 +15,6 @@
   "places_for_rent": "Список домов, квартир",
   "choose_dates": "Выберете даты",
   "login_with_metamask": "Войти с Metamask",
-  "you_have_no_bookings": "У вас еще нет броней"
+  "you_have_no_bookings": "У вас еще нет броней",
+  "you_have_no_properties": "У вас еще нет объявлений"
 }
