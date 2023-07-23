@@ -119,8 +119,18 @@ class HomeModel extends ChangeNotifier {
     // TODO: load bookings from blockchain
     bookingsInProgress = true;
     bookingsList = [
-      Booking(tenantAddress: '0xaejvbkjrb', contractAddress: 'ox09876552', start: DateTime.now(), end: DateTime(2023, 7, 26), amount: 0.0004),
-      Booking(tenantAddress: '0xaejvbkjrb', contractAddress: 'ox09876550', start: DateTime(2023, 7, 26), end: DateTime(2023, 7, 31), amount: 0.0008),
+      Booking(
+          tenantAddress: '0xaejvbkjrb',
+          contractAddress: 'ox09876552',
+          start: DateTime.now(),
+          end: DateTime(2023, 7, 26),
+          amount: 0.0004),
+      Booking(
+          tenantAddress: '0xaejvbkjrb',
+          contractAddress: 'ox09876550',
+          start: DateTime(2023, 7, 26),
+          end: DateTime(2023, 7, 31),
+          amount: 0.0008),
     ];
     bookingsInProgress = false;
   }

@@ -16,5 +16,12 @@
   "choose_dates": "Choose dates",
   "login_with_metamask": "Login with Metamask",
   "you_have_no_bookings": "You have no bookings yet",
-  "you_have_no_properties": "You have no properties yet"
+  "you_have_no_properties": "You have no properties yet",
+  "edit_item": "Edit property",
+  "location": "Location",
+  "invalid_decimal_price": "Invalid decimal price",
+  "item_description": "Write description here. Markdown is supported",
+  "photos": "Your photos here. You can add them by direct link to image file. Make sure that image is public available.",
+  "add": "Add",
+  "save": "Save"
 }

@@ -1,3 +1,4 @@
+import 'package:frontend/features/edit_item/edit_item.dart';
 import 'package:frontend/features/home/home.dart';
 import 'package:frontend/features/item/item.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,19 @@ class AppRouter {
           return ChangeNotifierProvider(
             create: (context) => ItemModel(item),
             child: const ItemPage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/edit_item/:address',
+        builder: (context, state) {
+          final address = state.pathParameters['address']!;
+          final item = address != 'new'
+              ? context.read<HomeModel>().getItem(address)
+              : null;
+          return ChangeNotifierProvider(
+            create: (context) => EditItemModel(item),
+            child: const EditItemPage(),
           );
         },
       ),
