@@ -9,17 +9,16 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) {
-          return ChangeNotifierProvider(
-            create: (context) => HomeModel(),
-            child: const HomePage(),
-          );
+          return const HomePage();
         },
       ),
       GoRoute(
         path: '/item/:address',
         builder: (context, state) {
+          final address = state.pathParameters['address']!;
+          final item = context.read<HomeModel>().getItem(address);
           return ChangeNotifierProvider(
-            create: (context) => ItemModel(state.pathParameters['address']!),
+            create: (context) => ItemModel(item),
             child: const ItemPage(),
           );
         },

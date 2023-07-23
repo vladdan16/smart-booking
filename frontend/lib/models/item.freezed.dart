@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Item {
   String get address => throw _privateConstructorUsedError;
-  Uint8List? get imageBytes => throw _privateConstructorUsedError;
+  List<String> get images => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $ItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String address,
-      Uint8List? imageBytes,
+      List<String> images,
       double price,
       String location,
       String description});
@@ -53,7 +53,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   @override
   $Res call({
     Object? address = null,
-    Object? imageBytes = freezed,
+    Object? images = null,
     Object? price = null,
     Object? location = null,
     Object? description = null,
@@ -63,10 +63,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      imageBytes: freezed == imageBytes
-          ? _value.imageBytes
-          : imageBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+      images: null == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -91,7 +91,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String address,
-      Uint8List? imageBytes,
+      List<String> images,
       double price,
       String location,
       String description});
@@ -107,7 +107,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
   @override
   $Res call({
     Object? address = null,
-    Object? imageBytes = freezed,
+    Object? images = null,
     Object? price = null,
     Object? location = null,
     Object? description = null,
@@ -117,10 +117,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
-      imageBytes: freezed == imageBytes
-          ? _value.imageBytes
-          : imageBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+      images: null == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -142,15 +142,22 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
 class _$_Item implements _Item {
   const _$_Item(
       {required this.address,
-      this.imageBytes,
+      required final List<String> images,
       required this.price,
       required this.location,
-      required this.description});
+      required this.description})
+      : _images = images;
 
   @override
   final String address;
+  final List<String> _images;
   @override
-  final Uint8List? imageBytes;
+  List<String> get images {
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_images);
+  }
+
   @override
   final double price;
   @override
@@ -160,7 +167,7 @@ class _$_Item implements _Item {
 
   @override
   String toString() {
-    return 'Item(address: $address, imageBytes: $imageBytes, price: $price, location: $location, description: $description)';
+    return 'Item(address: $address, images: $images, price: $price, location: $location, description: $description)';
   }
 
   @override
@@ -169,8 +176,7 @@ class _$_Item implements _Item {
         (other.runtimeType == runtimeType &&
             other is _$_Item &&
             (identical(other.address, address) || other.address == address) &&
-            const DeepCollectionEquality()
-                .equals(other.imageBytes, imageBytes) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.location, location) ||
                 other.location == location) &&
@@ -182,7 +188,7 @@ class _$_Item implements _Item {
   int get hashCode => Object.hash(
       runtimeType,
       address,
-      const DeepCollectionEquality().hash(imageBytes),
+      const DeepCollectionEquality().hash(_images),
       price,
       location,
       description);
@@ -197,7 +203,7 @@ class _$_Item implements _Item {
 abstract class _Item implements Item {
   const factory _Item(
       {required final String address,
-      final Uint8List? imageBytes,
+      required final List<String> images,
       required final double price,
       required final String location,
       required final String description}) = _$_Item;
@@ -205,7 +211,7 @@ abstract class _Item implements Item {
   @override
   String get address;
   @override
-  Uint8List? get imageBytes;
+  List<String> get images;
   @override
   double get price;
   @override

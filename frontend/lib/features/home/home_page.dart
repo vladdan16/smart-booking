@@ -34,28 +34,28 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: "Filter",
-        onPressed: () {},
-        child: const Icon(Icons.filter_list_alt),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   tooltip: "Filter",
+      //   onPressed: () {},
+      //   child: const Icon(Icons.filter_list_alt),
+      // ),
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (index) {
           context.read<HomeModel>().selectedPage = index;
         },
         selectedIndex: selectedPage,
-        destinations: const <Widget>[
+        destinations: <Widget>[
           NavigationDestination(
-            icon: Icon(Icons.explore),
-            label: "Explore",
+            icon: const Icon(Icons.explore),
+            label: "explore".tr(),
           ),
           NavigationDestination(
-            icon: Icon(Icons.menu),
-            label: "Bookings",
+            icon: const Icon(Icons.menu),
+            label: "my_bookings".tr(),
           ),
           NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "Profile",
+            icon: const Icon(Icons.holiday_village),
+            label: "my_properties".tr(),
           ),
         ],
       ),
@@ -69,7 +69,6 @@ class _HomeContent extends StatelessWidget {
     final hPadding = MediaQuery.of(context).size.width > 700
         ? MediaQuery.of(context).size.width * 0.1
         : 10.0;
-    final list = context.read<HomeModel>();
     return FutureBuilder(
       future: context.read<HomeModel>().loadItemList(),
       builder: (context, state) {
@@ -125,7 +124,7 @@ class _BookingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SliverToBoxAdapter(
       child: Center(
-        child: Text('Bookings'),
+        child: Text('My bookings'),
       ),
     );
   }
@@ -134,6 +133,10 @@ class _BookingsView extends StatelessWidget {
 class _ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Profile"));
+    return const SliverToBoxAdapter(
+      child: Center(
+        child: Text('My properties'),
+      ),
+    );
   }
 }

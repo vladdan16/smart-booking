@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/features/home/home.dart';
 import 'package:frontend/router.dart';
+import 'package:provider/provider.dart';
 
 import 'generated/codegen_loader.g.dart';
 
@@ -48,22 +50,25 @@ class AppView extends StatelessWidget {
             brightness: Brightness.dark,
           );
         }
-        return MaterialApp.router(
-          routerConfig: AppRouter.router,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          debugShowCheckedModeBanner: false,
-          title: 'Smart booking',
-          theme: ThemeData(
-            colorScheme: lightColorScheme,
-            useMaterial3: true,
+        return ChangeNotifierProvider(
+          create: (context) => HomeModel(),
+          child: MaterialApp.router(
+            routerConfig: AppRouter.router,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            debugShowCheckedModeBanner: false,
+            title: 'Smart booking',
+            theme: ThemeData(
+              colorScheme: lightColorScheme,
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: darkColorScheme,
+              useMaterial3: true,
+            ),
+            themeMode: EasyDynamicTheme.of(context).themeMode,
           ),
-          darkTheme: ThemeData(
-            colorScheme: darkColorScheme,
-            useMaterial3: true,
-          ),
-          themeMode: EasyDynamicTheme.of(context).themeMode,
         );
       },
     );

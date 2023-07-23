@@ -15,10 +15,38 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en = {
-  "smart_booking": "Smart booking"
+  "smart_booking": "Smart booking",
+  "book_property": "Book property",
+  "amount": "Amount",
+  "choose_date": "Choose date",
+  "arrival_date": "Arrival date",
+  "departure_date": "Departure date",
+  "description": "Description",
+  "address": "Address",
+  "price": "Price",
+  "not_specified": "Not specified",
+  "explore": "Explore",
+  "my_bookings": "My bookings",
+  "my_properties": "My properties",
+  "places_for_rent": "Places for rent",
+  "choose_dates": "Choose dates"
 };
 static const Map<String,dynamic> ru = {
-  "smart_booking": "Smart booking"
+  "smart_booking": "Smart booking",
+  "book_property": "Забронировать",
+  "amount": "Итого",
+  "choose_date": "Выберите дату",
+  "arrival_date": "Дата заезда",
+  "departure_date": "Дата выезда",
+  "description": "Описание",
+  "address": "Адрес",
+  "price": "Цена",
+  "not_specified": "Не указано",
+  "explore": "Обзор",
+  "my_bookings": "История брони",
+  "my_properties": "Мое имущество",
+  "places_for_rent": "Список домов, квартир",
+  "choose_dates": "Выберете даты"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

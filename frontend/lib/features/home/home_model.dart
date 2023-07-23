@@ -18,16 +18,16 @@ class HomeModel extends ChangeNotifier {
 
   Future<void> loadItemList() async {
     itemList = <Item>[
-      Item(address: "ox09876543", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876544", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876545", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876546", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876547", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876548", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876549", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876550", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876551", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
-      Item(address: "ox09876552", price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876543", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876544", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876545", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876546", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876547", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876548", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876549", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876550", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876551", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
+      Item(address: "ox09876552", images: ['https://i.imgur.com/OuiwcF0.png'], price: 0.0002, location: "Innopolis, Sportivnaya st", description: "## Description"),
     ];
   }
 }

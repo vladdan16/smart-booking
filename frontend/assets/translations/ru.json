@@ -1,3 +1,17 @@
 {
-  "smart_booking": "Smart booking"
+  "smart_booking": "Smart booking",
+  "book_property": "Забронировать",
+  "amount": "Итого",
+  "choose_date": "Выберите дату",
+  "arrival_date": "Дата заезда",
+  "departure_date": "Дата выезда",
+  "description": "Описание",
+  "address": "Адрес",
+  "price": "Цена",
+  "not_specified": "Не указано",
+  "explore": "Обзор",
+  "my_bookings": "История брони",
+  "my_properties": "Мое имущество",
+  "places_for_rent": "Список домов, квартир",
+  "choose_dates": "Выберете даты"
 }

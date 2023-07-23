@@ -16,8 +16,8 @@ class ItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     final item = context.read<HomeModel>().getItem(address);
     return ListTile(
-      leading: item.imageBytes != null
-          ? Image.memory(item.imageBytes!)
+      leading: item.images.isNotEmpty
+          ? Image.network(item.images[0])
           : const SizedBox(
               width: 100,
               height: 100,
