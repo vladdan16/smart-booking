@@ -13,7 +13,7 @@ class EditItemPage extends StatelessWidget {
     final priceController = TextEditingController();
     final locationController = TextEditingController();
     final descriptionController = TextEditingController();
-    final photoList = context.watch<EditItemModel>().photoList;
+    final photoList = context.watch<EditItemModel>().imageList;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -43,14 +43,19 @@ class EditItemPage extends StatelessWidget {
                     child: TextFormField(
                       controller: priceController,
                       decoration: InputDecoration(
-                          border: const OutlineInputBorder(),
-                          labelText: 'price'.tr(),
-                          suffixText: 'ETH',
-                          hintText: '0.02'),
+                        border: const OutlineInputBorder(),
+                        labelText: 'price'.tr(),
+                        suffixText: 'ETH',
+                        hintText: '0.02',
+                      ),
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null) return null;
                         try {
-                          double.parse(value);
+                          final res = double.parse(value);
+                          if (res <= 0) {
+                            return 'invalid_price'.tr();
+                          }
                           return null;
                         } catch (_) {
                           return 'invalid_decimal_price'.tr();
@@ -68,6 +73,7 @@ class EditItemPage extends StatelessWidget {
                         labelText: 'location'.tr(),
                         hintText: 'New York, Time Square',
                       ),
+                      keyboardType: TextInputType.streetAddress,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -82,6 +88,7 @@ class EditItemPage extends StatelessWidget {
                             border: InputBorder.none,
                             hintText: 'item_description'.tr(),
                           ),
+                          keyboardType: TextInputType.multiline,
                           minLines: 4,
                           maxLines: null,
                         ),
@@ -93,6 +100,7 @@ class EditItemPage extends StatelessWidget {
                     width: 800,
                     child: const Text('photos').tr(),
                   ),
+                  const SizedBox(height: 10),
                   const SizedBox(width: 800, child: Divider()),
                   ...List.generate(
                     photoList.length,
@@ -101,10 +109,16 @@ class EditItemPage extends StatelessWidget {
                         width: 800,
                         child: ListTile(
                           title: Text(photoList[i]),
-                          leading: Text('$i'),
+                          leading: Text('${i + 1}'),
                           trailing: IconButton(
-                            onPressed: () {
-                              // TODO: show edit photo dialog
+                            onPressed: () async {
+                              final res = await showEditPhotoDialog(
+                                context,
+                                initial: photoList[i],
+                              );
+                              if (context.mounted) {
+                                context.read<EditItemModel>().editImage(i, res);
+                              }
                             },
                             icon: const Icon(Icons.edit),
                           ),
@@ -112,12 +126,17 @@ class EditItemPage extends StatelessWidget {
                       );
                     },
                   ),
+                  const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {
-                      // TODO: show add photo dialog (same as edit)
+                    onPressed: () async {
+                      final res = await showEditPhotoDialog(context);
+                      if (context.mounted && res != null) {
+                        context.read<EditItemModel>().addImage(res);
+                      }
                     },
-                    child: const Text('add').tr(),
+                    child: const Text('add_photo').tr(),
                   ),
+                  const SizedBox(height: 30),
                   FilledButton(
                     onPressed: () {
                       // TODO: save item
@@ -131,5 +150,40 @@ class EditItemPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<String?> showEditPhotoDialog(
+    BuildContext context, {
+    String? initial,
+  }) async {
+    final controller = TextEditingController(text: initial);
+    final String? res = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('enter_image_url').tr(),
+          content: TextField(
+            controller: controller,
+            decoration: const InputDecoration(
+              hintText: 'https://example.com/images/1.png',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => context.pop(),
+              child: const Text('delete').tr(),
+            ),
+            TextButton(
+              onPressed: () => context.pop(controller.text.trim()),
+              child: const Text('save').tr(),
+            ),
+          ],
+        );
+      },
+    );
+    if (res == null || res.trim().isEmpty) {
+      return null;
+    }
+    return res;
   }
 }
