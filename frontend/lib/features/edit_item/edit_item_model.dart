@@ -28,4 +28,10 @@ class EditItemModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void saveItem({
+    required double price,
+    required String location,
+    required String description,
+  }) {}
 }

@@ -7,10 +7,12 @@ class ItemView extends StatelessWidget {
     super.key,
     required this.address,
     required this.onTap,
+    this.onEdit,
   });
 
   final String address;
   final Function() onTap;
+  final Function()? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +60,20 @@ class ItemView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      '${item.price} ETH',
-                      style: const TextStyle(fontSize: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '${item.price} ETH',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        const SizedBox(width: 40),
+                        if (onEdit != null)
+                          IconButton(
+                            onPressed: onEdit,
+                            icon: const Icon(Icons.edit),
+                          ),
+                      ],
                     ),
                     Text(
                       item.location,

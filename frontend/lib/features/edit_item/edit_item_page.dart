@@ -139,7 +139,13 @@ class EditItemPage extends StatelessWidget {
                   const SizedBox(height: 30),
                   FilledButton(
                     onPressed: () {
-                      // TODO: save item
+                      if (formKey.currentState!.validate()) {
+                        context.read<EditItemModel>().saveItem(
+                          price: double.parse(priceController.text),
+                          location: locationController.text,
+                          description: descriptionController.text,
+                        );
+                      }
                     },
                     child: const Text('save').tr(),
                   ),

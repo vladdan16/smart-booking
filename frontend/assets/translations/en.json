@@ -26,5 +26,6 @@
   "save": "Save",
   "invalid_price": "Invalid price",
   "enter_image_url": "Enter image URL",
-  "delete": "Delete"
+  "delete": "Delete",
+  "your_tenants": "Your tenants"
 }

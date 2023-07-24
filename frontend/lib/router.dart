@@ -4,6 +4,8 @@ import 'package:frontend/features/item/item.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import 'features/bookings/bookings.dart';
+
 class AppRouter {
   static final router = GoRouter(
     routes: <GoRoute>[
@@ -34,6 +36,15 @@ class AppRouter {
           return ChangeNotifierProvider(
             create: (context) => EditItemModel(item),
             child: const EditItemPage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/bookings/:address',
+        builder: (context, state) {
+          return ChangeNotifierProvider(
+            create: (context) => BookingsModel(state.pathParameters['address']!),
+            child: const BookingsPage(),
           );
         },
       ),

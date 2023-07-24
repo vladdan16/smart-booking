@@ -261,8 +261,10 @@ class _ProfileView extends StatelessWidget {
                 (index) {
                   return ItemView(
                     address: list[index].address,
-                    onTap: () =>
-                        context.go('/edit_item/${list[index].address}'),
+                    onTap: () {
+                      context.go('/bookings/${list[index].address}');
+                    },
+                    onEdit: () => context.go('/edit_item/${list[index].address}'),
                   );
                 },
               ),

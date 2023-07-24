@@ -133,11 +133,19 @@ class HomeModel extends ChangeNotifier {
           amount: 0.0008),
     ];
     bookingsInProgress = false;
+    if (propertyList == null) {
+      loadPropertyList();
+    }
+    notifyListeners();
   }
 
   Future<void> loadPropertyList() async {
     profileInProgress = true;
     propertyList = itemList.where((e) => e.landlord == _address).toList();
     profileInProgress = false;
+    if (bookingsList == null) {
+      loadBookingsList();
+    }
+    notifyListeners();
   }
 }
