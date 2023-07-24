@@ -10,9 +10,15 @@ class EditItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final priceController = TextEditingController();
-    final locationController = TextEditingController();
-    final descriptionController = TextEditingController();
+    final priceController = TextEditingController(
+      text: context.read<EditItemModel>().price.toString(),
+    );
+    final locationController = TextEditingController(
+      text: context.read<EditItemModel>().location,
+    );
+    final descriptionController = TextEditingController(
+      text: context.read<EditItemModel>().description,
+    );
     final photoList = context.watch<EditItemModel>().imageList;
     return Scaffold(
       body: CustomScrollView(
@@ -49,6 +55,7 @@ class EditItemPage extends StatelessWidget {
                         hintText: '0.02',
                       ),
                       keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null) return null;
                         try {
@@ -74,6 +81,7 @@ class EditItemPage extends StatelessWidget {
                         hintText: 'New York, Time Square',
                       ),
                       keyboardType: TextInputType.streetAddress,
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -141,10 +149,10 @@ class EditItemPage extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         context.read<EditItemModel>().saveItem(
-                          price: double.parse(priceController.text),
-                          location: locationController.text,
-                          description: descriptionController.text,
-                        );
+                              price: double.parse(priceController.text),
+                              location: locationController.text,
+                              description: descriptionController.text,
+                            );
                       }
                     },
                     child: const Text('save').tr(),

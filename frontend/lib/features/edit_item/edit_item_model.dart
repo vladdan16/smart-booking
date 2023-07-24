@@ -13,7 +13,7 @@ class EditItemModel extends ChangeNotifier {
         price = item?.price,
         location = item?.location ?? '',
         description = item?.description ?? '',
-        imageList = item?.images ?? [];
+        imageList = [...?item?.images];
 
   void addImage(String image) {
     imageList.add(image);
