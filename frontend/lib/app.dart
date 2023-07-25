@@ -3,7 +3,9 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/features/home/home.dart';
+import 'package:frontend/repositories/contract_repository.dart';
 import 'package:frontend/router.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import 'generated/codegen_loader.g.dart';
@@ -51,7 +53,7 @@ class AppView extends StatelessWidget {
           );
         }
         return ChangeNotifierProvider(
-          create: (context) => HomeModel(),
+          create: (context) => HomeModel(GetIt.I<ContractRepository>()),
           child: MaterialApp.router(
             routerConfig: AppRouter.router,
             localizationsDelegates: context.localizationDelegates,

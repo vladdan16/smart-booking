@@ -1,19 +1,28 @@
 import 'package:flutter/foundation.dart';
+import 'package:frontend/core/creds.dart';
 import 'package:frontend/models/models.dart';
+import 'package:frontend/repositories/contract_repository.dart';
 
 class HomeModel extends ChangeNotifier {
+  final ContractRepository contractRepository;
+
   List<Item> itemList = [];
   List<Booking>? bookingsList;
   List<Item>? propertyList;
+  bool inProgress = true;
   bool _bookingsInProgress = false;
   bool _profileInProgress = false;
   int _selectedPage = 0;
-  String? _address;
+
+  HomeModel(this.contractRepository) {
+    loadItemList();
+  }
 
   int get selectedPage => _selectedPage;
+
   bool get bookingsInProgress => _bookingsInProgress;
+
   bool get profileInProgress => _profileInProgress;
-  String? get address => _address;
 
   set bookingsInProgress(bool val) {
     _bookingsInProgress = val;
@@ -30,108 +39,22 @@ class HomeModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  set address(String? s) {
-    _address = s;
-    notifyListeners();
-  }
-
   Item getItem(String address) {
     return itemList.firstWhere((e) => e.address == address);
   }
 
   Future<void> loadItemList() async {
-    // TODO: retrieve items from blockchain
-    itemList = <Item>[
-      const Item(
-          address: "ox09876543",
-          landlord: '0x3',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876544",
-          landlord: '0x1',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876545",
-          landlord: '0x1',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876546",
-          landlord: '0x1',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876547",
-          landlord: '0x1',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876548",
-          landlord: '0x2',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876549",
-          landlord: '0x2',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876550",
-          landlord: '0x2',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876551",
-          landlord: '0x2',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-      const Item(
-          address: "ox09876552",
-          landlord: '0x2',
-          images: ['https://i.imgur.com/OuiwcF0.png'],
-          price: 0.0002,
-          location: "Innopolis, Sportivnaya st",
-          description: "## Description"),
-    ];
+    inProgress = true;
+    itemList = await contractRepository.getItemList();
+    inProgress = false;
+    notifyListeners();
   }
 
   Future<void> loadBookingsList() async {
-    // TODO: load bookings from blockchain
     bookingsInProgress = true;
-    bookingsList = [
-      Booking(
-          tenantAddress: '0xaejvbkjrb',
-          contractAddress: 'ox09876552',
-          start: DateTime.now(),
-          end: DateTime(2023, 7, 26),
-          amount: 0.0004),
-      Booking(
-          tenantAddress: '0xaejvbkjrb',
-          contractAddress: 'ox09876550',
-          start: DateTime(2023, 7, 26),
-          end: DateTime(2023, 7, 31),
-          amount: 0.0008),
-    ];
+
+    bookingsList =
+        await contractRepository.getBookingHistoryByAddress(Creds.credentials!.address);
     bookingsInProgress = false;
     if (propertyList == null) {
       loadPropertyList();
@@ -141,11 +64,15 @@ class HomeModel extends ChangeNotifier {
 
   Future<void> loadPropertyList() async {
     profileInProgress = true;
-    propertyList = itemList.where((e) => e.landlord == _address).toList();
+    propertyList = itemList.where((e) => e.landlord == Creds.credentials!.address.hex).toList();
     profileInProgress = false;
     if (bookingsList == null) {
       loadBookingsList();
     }
     notifyListeners();
+  }
+
+  Future<String> bookProperty(String address, Booking booking) async {
+    return await contractRepository.bookProperty(address, booking, Creds.credentials!);
   }
 }

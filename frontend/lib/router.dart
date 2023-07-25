@@ -1,6 +1,8 @@
 import 'package:frontend/features/edit_item/edit_item.dart';
 import 'package:frontend/features/home/home.dart';
 import 'package:frontend/features/item/item.dart';
+import 'package:frontend/repositories/contract_repository.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +36,10 @@ class AppRouter {
               ? context.read<HomeModel>().getItem(address)
               : null;
           return ChangeNotifierProvider(
-            create: (context) => EditItemModel(item),
+            create: (context) => EditItemModel(
+              item,
+              GetIt.I<ContractRepository>(),
+            ),
             child: const EditItemPage(),
           );
         },
@@ -43,7 +48,10 @@ class AppRouter {
         path: '/bookings/:address',
         builder: (context, state) {
           return ChangeNotifierProvider(
-            create: (context) => BookingsModel(state.pathParameters['address']!),
+            create: (context) => BookingsModel(
+              state.pathParameters['address']!,
+              GetIt.I<ContractRepository>(),
+            ),
             child: const BookingsPage(),
           );
         },

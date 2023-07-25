@@ -39,7 +39,11 @@ class ItemView extends StatelessWidget {
                     height: 200,
                     fit: BoxFit.fitHeight,
                     errorBuilder: (context, exception, stackTrace) {
-                      return Image.asset('assets/images/placeholder-image.jpg');
+                      return Image.asset(
+                        'assets/images/placeholder-image.jpg',
+                        width: 300,
+                        height: 200,
+                      );
                     },
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) {
@@ -57,34 +61,36 @@ class ItemView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${item.price} ETH',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        const SizedBox(width: 40),
-                        if (onEdit != null)
-                          IconButton(
-                            onPressed: onEdit,
-                            icon: const Icon(Icons.edit),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${item.price} ETH',
+                            style: const TextStyle(fontSize: 20),
                           ),
-                      ],
-                    ),
-                    Text(
-                      item.location,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      item.description,
-                      maxLines: 6,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                          const SizedBox(width: 40),
+                          if (onEdit != null)
+                            IconButton(
+                              onPressed: onEdit,
+                              icon: const Icon(Icons.edit),
+                            ),
+                        ],
+                      ),
+                      Text(
+                        item.location,
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                      Text(
+                        item.description,
+                        maxLines: 6,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

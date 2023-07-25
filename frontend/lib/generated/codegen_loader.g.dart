@@ -43,7 +43,10 @@ class CodegenLoader extends AssetLoader{
   "invalid_price": "Invalid price",
   "enter_image_url": "Enter image URL",
   "delete": "Delete",
-  "your_tenants": "Your tenants"
+  "your_tenants": "Your tenants",
+  "login": "Login",
+  "enter_private_key": "Enter your private key to login",
+  "close": "Close"
 };
 static const Map<String,dynamic> ru = {
   "smart_booking": "Smart booking",
@@ -74,7 +77,10 @@ static const Map<String,dynamic> ru = {
   "invalid_price": "Недопустимая цена",
   "enter_image_url": "Введите ссылку на изображение",
   "delete": "Удалить",
-  "your_tenants": "Ваши арендаторы"
+  "your_tenants": "Ваши арендаторы",
+  "Login": "Войти",
+  "enter_private_key": "Введите ваш приватный ключ",
+  "close": "Закрыть"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

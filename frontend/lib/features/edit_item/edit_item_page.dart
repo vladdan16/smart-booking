@@ -10,8 +10,9 @@ class EditItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final price = context.read<EditItemModel>().price;
     final priceController = TextEditingController(
-      text: context.read<EditItemModel>().price.toString(),
+      text: price != null ? price.toString() : '',
     );
     final locationController = TextEditingController(
       text: context.read<EditItemModel>().location,
@@ -68,7 +69,12 @@ class EditItemPage extends StatelessWidget {
                           return 'invalid_decimal_price'.tr();
                         }
                       },
-                      onChanged: (value) => formKey.currentState?.validate(),
+                      onChanged: (value) {
+                        if (formKey.currentState!.validate()) {
+                          context.read<EditItemModel>().price =
+                              double.parse(value);
+                        }
+                      },
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -82,6 +88,9 @@ class EditItemPage extends StatelessWidget {
                       ),
                       keyboardType: TextInputType.streetAddress,
                       textInputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        context.read<EditItemModel>().location = value;
+                      },
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -99,6 +108,9 @@ class EditItemPage extends StatelessWidget {
                           keyboardType: TextInputType.multiline,
                           minLines: 4,
                           maxLines: null,
+                          onChanged: (value) {
+                            context.read<EditItemModel>().description = value;
+                          },
                         ),
                       ),
                     ),
@@ -153,10 +165,12 @@ class EditItemPage extends StatelessWidget {
                               location: locationController.text,
                               description: descriptionController.text,
                             );
+                        context.go('/');
                       }
                     },
                     child: const Text('save').tr(),
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),

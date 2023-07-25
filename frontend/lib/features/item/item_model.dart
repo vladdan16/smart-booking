@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:frontend/core/creds.dart';
+import 'package:frontend/models/booking.dart';
 
 import '../../models/item.dart';
 
@@ -11,12 +13,20 @@ class ItemModel extends ChangeNotifier {
   ItemModel(Item item) : _item = item;
 
   List<String> get images => _item.images;
+
   String get description => _item.description;
+
   String get location => _item.location;
+
   double get price => _item.price;
+
   String get address => _item.address;
+
   DateTime? get startDate => _startDate;
+
   DateTime? get endDate => _endDate;
+
+  Item get item => _item;
 
   set startDate(DateTime? date) {
     _startDate = date;
@@ -43,5 +53,15 @@ class ItemModel extends ChangeNotifier {
       final days = _endDate!.difference(_startDate!).inDays;
       amount = price * days;
     }
+  }
+
+  Booking createBooking() {
+    return Booking(
+      tenantAddress: Creds.credentials!.address.hex,
+      contractAddress: item.address,
+      amount: amount!,
+      start: _startDate!,
+      end: _endDate!,
+    );
   }
 }

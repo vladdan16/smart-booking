@@ -102,7 +102,6 @@ coverage/
 packages/**/pubspec.lock
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -130,3 +129,5 @@ app.*.map.json
 /storage.rules
 /lib/firebase_options.dart
 /android/app/google-services.json
+/.env
+/lib/env/env.g.dart

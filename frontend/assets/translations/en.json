@@ -27,5 +27,8 @@
   "invalid_price": "Invalid price",
   "enter_image_url": "Enter image URL",
   "delete": "Delete",
-  "your_tenants": "Your tenants"
+  "your_tenants": "Your tenants",
+  "login": "Login",
+  "enter_private_key": "Enter your private key to login",
+  "close": "Close"
 }

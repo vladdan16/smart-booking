@@ -1,11 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:frontend/core/creds.dart';
 import 'package:frontend/core/date_time_extension.dart';
+import 'package:frontend/core/dialogs.dart';
+import 'package:frontend/features/home/home.dart';
 import 'package:frontend/features/item/item.dart';
 import 'package:frontend/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:web3dart/credentials.dart';
 
 class ItemPage extends StatelessWidget {
   const ItemPage({super.key});
@@ -122,11 +126,36 @@ class ItemPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 15),
                         FilledButton(
+                          onPressed: amount == null
+                              ? null
+                              : () async {
+                                  if (Creds.credentials == null) {
+                                    final res = await showLoginDialog(context);
+                                    if (res == null ||
+                                        Creds.setCredentials(res)) {
+                                      return;
+                                    }
+                                  }
+                                  final item = context.read<ItemModel>().item;
+                                  final booking =
+                                      context.read<ItemModel>().createBooking();
+                                  final res = await context
+                                      .read<HomeModel>()
+                                      .bookProperty(
+                                        item.address,
+                                        booking,
+                                      );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'Successfully booked property. Here is transaction hash: $res'),
+                                    ),
+                                  );
+                                  context.go('/');
+                                },
                           child: const Text('book_property').tr(),
-                          onPressed: () {
-                            // TODO: implement booking
-                          },
                         ),
+                        const SizedBox(height: 40),
                       ],
                     ),
                   ),
