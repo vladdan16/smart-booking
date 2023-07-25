@@ -3,13 +3,14 @@ pragma solidity ^0.8.4;
 
 contract RentalContract {
     address payable public landlord;
-    address public tenant;
     uint256 public rentPrice;
     string public propertyMetadata;
 
     struct Booking {
+        address tenant;
         uint256 start;
         uint256 end;
+        uint256 amount;
     }
 
     Booking[] public bookings;
@@ -22,6 +23,16 @@ contract RentalContract {
         landlord = _landlord;
         rentPrice = _rentPrice;
         propertyMetadata = _propertyMetadata;
+    }
+
+    modifier onlyOwner {
+        require(msg.sender == landlord, "Only the owner can perform this action");
+        _;
+    }
+
+    function editContract(uint256 _newRentPrice, string memory _newPropertyMetadata) public onlyOwner {
+        rentPrice = _newRentPrice;
+        propertyMetadata = _newPropertyMetadata;
     }
 
     function bookProperty(uint256 _start, uint256 _end) public payable {
@@ -37,8 +48,7 @@ contract RentalContract {
         }
 
         landlord.transfer(totalCost);
-        tenant = msg.sender;
-        bookings.push(Booking(_start, _end));
+        bookings.push(Booking(msg.sender, _start, _end, totalCost));
     }
 
     function isAvailable(uint256 _start, uint256 _end) public view returns(bool) {
@@ -51,5 +61,29 @@ contract RentalContract {
             }
         }
         return true;
+    }
+
+    function getTenantBookings(address tenant) public view returns(Booking[] memory) {
+        uint256 count = 0;
+        for (uint256 i = 0; i < bookings.length; i++) {
+            if (bookings[i].tenant == tenant) {
+                count++;
+            }
+        }
+
+        Booking[] memory tenantBookings = new Booking[](count);
+        uint256 j = 0;
+        for (uint256 i = 0; i < bookings.length; i++) {
+            if (bookings[i].tenant == tenant) {
+                tenantBookings[j] = bookings[i];
+                j++;
+            }
+        }
+
+        return tenantBookings;
+    }
+
+    function getAllBookings() public view returns(Booking[] memory) {
+        return bookings;
     }
 }

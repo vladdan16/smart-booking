@@ -48,7 +48,7 @@ class ContractRepository {
       );
       ownerContracts.add(contract);
       final meta = await contract.propertyMetadata();
-      final item = Item.fromJson(jsonDecode(meta));
+      final item = Item.fromJson(jsonDecode(meta)).copyWith(address: address.hex);
       ownerItems.add(item);
     }
 
@@ -60,7 +60,6 @@ class ContractRepository {
     final List<dynamic> tenantBookingsRaw =
         await bookingService.getTenantHistory(address);
     List<Booking> tenantBookings = [];
-    print(tenantBookingsRaw);
     for (var tenantBookingRaw in tenantBookingsRaw) {
       DateTime start = DateTime.fromMillisecondsSinceEpoch(
           (tenantBookingRaw[1][1] as BigInt).toInt() * 1000);
@@ -101,6 +100,7 @@ class ContractRepository {
     Item item,
     Credentials credentials,
   ) async {
+    await getOwnerItemList(credentials.address);
     final index = ownerItems.indexWhere((e) => e.address == item.address);
     final rentalContract = ownerContracts[index];
     final meta = jsonEncode(item.toJson());
