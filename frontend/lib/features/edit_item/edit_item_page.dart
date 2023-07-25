@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/features/edit_item/edit_item.dart';
+import 'package:frontend/features/home/home.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -165,6 +166,8 @@ class EditItemPage extends StatelessWidget {
                               location: locationController.text,
                               description: descriptionController.text,
                             );
+                        final item = context.read<EditItemModel>().item;
+                        context.read<HomeModel>().saveItem(item!);
                         context.go('/');
                       }
                     },

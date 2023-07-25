@@ -4,7 +4,7 @@ import 'package:frontend/repositories/contract_repository.dart';
 import 'package:web3dart/credentials.dart';
 
 class EditItemModel extends ChangeNotifier {
-  final Item? _item;
+  Item? _item;
   final ContractRepository contractRepository;
   double? price;
   String location;
@@ -21,6 +21,8 @@ class EditItemModel extends ChangeNotifier {
         location = item?.location ?? '',
         description = item?.description ?? '',
         imageList = [...?item?.images];
+
+  Item? get item => _item;
 
   void addImage(String image) {
     imageList.add(image);
@@ -50,6 +52,7 @@ class EditItemModel extends ChangeNotifier {
         location: location,
         description: description,
       );
+      _item = item;
       contractRepository.createContract(item, credentials);
     } else {
       final item = _item!.copyWith(
@@ -58,6 +61,7 @@ class EditItemModel extends ChangeNotifier {
         description: description,
         images: imageList,
       );
+      _item = item;
       contractRepository.editContract(item, credentials);
     }
   }

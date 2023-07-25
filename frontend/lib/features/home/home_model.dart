@@ -72,6 +72,16 @@ class HomeModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void saveItem(Item item) {
+    final index = itemList.indexWhere((e) => e.address == item.address);
+    if (index == -1) {
+      itemList.add(item);
+    } else {
+      itemList[index] = item;
+    }
+    notifyListeners();
+  }
+
   Future<String> bookProperty(String address, Booking booking) async {
     return await contractRepository.bookProperty(address, booking, Creds.credentials!);
   }
